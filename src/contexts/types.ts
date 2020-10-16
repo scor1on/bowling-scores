@@ -1,0 +1,4 @@
+export const SET_PLAYERS = 'SCORE/SET_PLAYERS';
+export const RESET_SCORES = 'SCORE/RESET_SCORES';
+export const ADD_SCORE = 'SCORE/ADD_SCORE';
+export const SCORE_ERROR = 'SCORE/ERROR';
