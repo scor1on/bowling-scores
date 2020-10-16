@@ -108,16 +108,26 @@ export const skipPrevBonusMove = (
   );
 };
 
-export const isGameOver = (
-  moves: number,
-  lastScore: number,
-  pins: number[]
-): boolean => {
-  const GameNotOver =
-    moves < 19 ||
-    (moves === 19 &&
-      (isSpare(lastScore, prevVal(pins)) || isStrike(prevVal(pins))));
-  return !GameNotOver;
+export const isGameOver = (playersData: IUserScore[]): boolean => {
+  return playersData.every(
+    (data) =>
+      data.frames.length > 0 && data.frames.length === data.totalScores.length
+  );
+};
+
+export const getWinnerData = (playersData: IUserScore[]) => {
+  const maxScore = getMaxScore(playersData);
+
+  const winners = playersData
+    .map((player, key) => ({
+      name:
+        player.totalScores.slice(-1)[0] === maxScore ? player.playerName : null,
+      score: maxScore,
+      key: key,
+    }))
+    .filter((p) => p.name);
+
+  return winners;
 };
 
 const getFrameScore = (
@@ -149,3 +159,8 @@ const getCurrentScore = (totalScores: number[]) => {
 };
 
 const prevVal = (arr: number[], key: number = 1): number => arr.slice(-key)[0];
+const getMaxScore = (playersData: IUserScore[]) =>
+  Math.max.apply(
+    Math,
+    playersData.map((player) => player.totalScores.slice(-1)[0])
+  );

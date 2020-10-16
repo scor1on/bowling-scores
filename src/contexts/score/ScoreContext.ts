@@ -4,6 +4,7 @@ import { IUserScore } from '../../models/IUserScore';
 export interface IScoreState {
   players: IUserScore[] | null;
   activePlayer: number;
+  gameOver: boolean;
   error: string | null;
 }
 

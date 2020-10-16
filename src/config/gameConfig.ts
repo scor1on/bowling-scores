@@ -5,6 +5,7 @@ interface IGameConfig {
   strike: number;
   strikeBonus: number;
   spareBonus: number;
+  maxPlayers: number;
 }
 
 export const GameConfig: IGameConfig = {
@@ -14,4 +15,5 @@ export const GameConfig: IGameConfig = {
   strike: 10,
   strikeBonus: 10,
   spareBonus: 10,
+  maxPlayers: 10,
 };

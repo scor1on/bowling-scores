@@ -1,6 +1,11 @@
 import { Card } from 'antd';
 import React, { memo } from 'react';
 
+const headStyle: React.CSSProperties = {
+  textAlign: 'center',
+  background: '#f0f2f5',
+};
+
 const gridStyle: React.CSSProperties = {
   height: '30px',
   textAlign: 'center',
@@ -15,10 +20,7 @@ export const Frame: React.FC<{
   const width = number !== 10 ? '50%' : '33.3%';
 
   return (
-    <Card
-      title={`Frame ${number}`}
-      size='small'
-      headStyle={{ textAlign: 'center', background: '#f0f2f5' }}>
+    <Card title={`Frame ${number}`} size='small' headStyle={headStyle}>
       <Card.Grid hoverable={false} style={{ ...gridStyle, width: width }}>
         {frameData && frameData[0]}
       </Card.Grid>

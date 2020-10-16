@@ -3,6 +3,7 @@ import React from 'react';
 import { Frame } from './Frame';
 import { IUserScore } from '../../models/IUserScore';
 import { StarTwoTone } from '@ant-design/icons';
+import { TotalFrame } from './TotalFrame';
 
 export const ScoreCard: React.FC<{ player: IUserScore; isActive: boolean }> = ({
   player,
@@ -34,6 +35,9 @@ export const ScoreCard: React.FC<{ player: IUserScore; isActive: boolean }> = ({
               />
             </Col>
           ))}
+          <Col key='total' span={2}>
+            <TotalFrame key='total' score={player.totalScores.slice(-1)[0]} />
+          </Col>
         </Row>
       </div>
     </>

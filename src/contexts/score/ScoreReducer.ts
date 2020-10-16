@@ -1,12 +1,14 @@
 import { SET_PLAYERS, ADD_SCORE, SCORE_ERROR, RESET_SCORES } from '../types';
 import { IScoreState } from './ScoreContext';
 import {
+  isGameOver,
   updateCurrentMove,
   updateFrames,
   updatePlayer,
   updateTotalScore,
 } from '../../utils/gameUtils';
 import { IUserScore } from '../../models/IUserScore';
+import { initialPlayerState, initialState } from './ScoreState';
 
 export type Action =
   | { type: typeof RESET_SCORES }
@@ -18,9 +20,10 @@ export default (state: IScoreState, action: Action): IScoreState => {
   switch (action.type) {
     case SET_PLAYERS:
       return {
+        ...initialState,
         ...state,
         players: action.payload,
-        activePlayer: 0,
+        gameOver: false,
       };
 
     case ADD_SCORE:
@@ -40,6 +43,7 @@ export default (state: IScoreState, action: Action): IScoreState => {
           state.activePlayer,
           state.players.length
         ),
+        gameOver: isGameOver(state.players),
       };
     case SCORE_ERROR:
       return {
@@ -49,16 +53,13 @@ export default (state: IScoreState, action: Action): IScoreState => {
     case RESET_SCORES:
       return {
         ...state,
-        activePlayer: 0,
+        ...initialState,
+        gameOver: false,
         players: !state.players
           ? null
           : state.players.map(({ playerName }) => ({
+              ...initialPlayerState,
               playerName,
-              frames: [],
-              moves: 0,
-              pins: [],
-              lastRoll: 0,
-              totalScores: [],
             })),
       };
 

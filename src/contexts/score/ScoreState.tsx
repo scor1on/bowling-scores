@@ -5,13 +5,45 @@ import ScoreReducer, { Action } from './ScoreReducer';
 import { ScoreContext } from './ScoreContext';
 import { GameConfig } from '../../config/gameConfig';
 import { IUserScore } from '../../models/IUserScore';
+import { isGameOver } from '../../utils/gameUtils';
+
+const saveToStorage = (players: IUserScore[] | null) => {
+  if (GameConfig.useSessionStorage) {
+    sessionStorage.setItem(GameConfig.playersKey, JSON.stringify(players));
+  }
+};
+
+const loadFromStorage = () => {
+  if (GameConfig.useSessionStorage) {
+    const playersInStorage = sessionStorage.getItem(GameConfig.playersKey);
+
+    if (playersInStorage) {
+      initialState.players = JSON.parse(playersInStorage);
+      initialState.gameOver = initialState.players
+        ? isGameOver(initialState.players)
+        : false;
+    }
+  }
+};
+
+export const initialState: IScoreState = {
+  players: null,
+  gameOver: false,
+  activePlayer: 0,
+  error: null,
+};
+
+export const initialPlayerState: IUserScore = {
+  playerName: '',
+  frames: [],
+  moves: 0,
+  pins: [],
+  lastRoll: 0,
+  totalScores: [],
+};
 
 export const ScoreState: React.FC = (props) => {
-  const initialState: IScoreState = {
-    players: null,
-    activePlayer: 0,
-    error: null,
-  };
+  loadFromStorage();
 
   if (GameConfig.useSessionStorage) {
     const playersInStorage = sessionStorage.getItem(GameConfig.playersKey);
@@ -28,10 +60,6 @@ export const ScoreState: React.FC = (props) => {
 
   const addPlayers = (players: IUserScore[]) => {
     dispatch({ type: SET_PLAYERS, payload: players });
-
-    if (GameConfig.useSessionStorage) {
-      sessionStorage.setItem(GameConfig.playersKey, JSON.stringify(players));
-    }
   };
 
   const addScore = (pin: number) => {
@@ -45,6 +73,8 @@ export const ScoreState: React.FC = (props) => {
   const restartCurrentGame = () => {
     dispatch({ type: RESET_SCORES });
   };
+
+  saveToStorage(state.players);
 
   return (
     <ScoreContext.Provider

@@ -1,9 +1,12 @@
 import { Button, Col, Input, Row } from 'antd';
 import React, { useContext, useState } from 'react';
-import { PlusOutlined, CloseOutlined } from '@ant-design/icons';
-import { ScoreContext } from '../contexts/score';
+import { ScoreContext } from '../../contexts/score';
+import { GameConfig } from '../../config/gameConfig';
+import { DeleteButton } from './DeleteButton';
+import { AddButton } from './AddButton';
+import { initialPlayerState } from '../../contexts/score/ScoreState';
 
-const AddPlayers: React.FC = () => {
+export const AddPlayers: React.FC = () => {
   const { addPlayers } = useContext(ScoreContext);
 
   const [players, setPlayers] = useState<string[]>(['']);
@@ -14,7 +17,7 @@ const AddPlayers: React.FC = () => {
 
   const deletePlayerInput = (key: number) => {
     setPlayers((origin) =>
-      origin.filter((player, playerKey) => playerKey !== key)
+      origin.filter((_player, playerKey) => playerKey !== key)
     );
   };
 
@@ -24,37 +27,13 @@ const AddPlayers: React.FC = () => {
     );
   };
 
-  const AddButton = (
-    <Button
-      type='primary'
-      icon={<PlusOutlined />}
-      size='large'
-      style={{ marginLeft: '5px' }}
-      onClick={addPlayerInput}
-    />
-  );
-
-  const DeleteButton = ({ playerKey }: { playerKey: number }) => (
-    <Button
-      type='primary'
-      icon={<CloseOutlined />}
-      size='large'
-      style={{ marginLeft: '5px' }}
-      onClick={() => deletePlayerInput(playerKey)}
-    />
-  );
-
   const startTheGame = (e: React.FormEvent) => {
     e.preventDefault();
 
     addPlayers(
       players.map((player) => ({
+        ...initialPlayerState,
         playerName: player,
-        frames: [],
-        moves: 0,
-        pins: [],
-        lastRoll: 0,
-        totalScores: [],
       }))
     );
   };
@@ -78,7 +57,12 @@ const AddPlayers: React.FC = () => {
                 style={{ width: '80%' }}
                 onChange={(e) => updatePlayerName(e.target.value, key)}
               />
-              {key === 0 ? AddButton : <DeleteButton playerKey={key} />}
+              {key === 0 && players?.length < GameConfig.maxPlayers && (
+                <AddButton clickAction={addPlayerInput} />
+              )}
+              {key > 0 && (
+                <DeleteButton deleteAction={() => deletePlayerInput(key)} />
+              )}
             </Col>
           </Row>
         ))}
@@ -92,5 +76,3 @@ const AddPlayers: React.FC = () => {
     </>
   );
 };
-
-export default AddPlayers;

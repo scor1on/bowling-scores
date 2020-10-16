@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import { ScoreState } from './contexts/score';
-import Game from './components/Game';
+import { Game } from './components/Game';
 import Breadcrumb from 'antd/lib/breadcrumb/Breadcrumb';
 import Layout from 'antd/lib/layout/layout';
 
