@@ -147,8 +147,8 @@ const getLastFrame = (frames: number[][]): number[] =>
 
 const isFrameClose = (moves: number): boolean => moves % 2 !== 0;
 const isFrameOpen = (moves: number): boolean => moves % 2 === 0;
-const isBonusMove = (moves: number): boolean => moves === GameConfig.bonusMove;
-const isStrike = (pins: number): boolean => pins === GameConfig.strike;
+const isBonusMove = (moves: number): boolean => moves === 20;
+const isStrike = (pins: number): boolean => pins === 10;
 const isSpare = (move1: number, move2: number): boolean => move1 + move2 === 10;
 const strikeBonus = (move1: number, move2: number): number =>
   GameConfig.strikeBonus + move1 + move2;
