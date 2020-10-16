@@ -18,7 +18,7 @@ To edit the configs, please update `/config/GameConfig.ts` file
 
 ### Installation
 
-Charging Stations requires [Node.js](https://nodejs.org/) v10+ to run.
+Bowling Scores requires [Node.js](https://nodejs.org/) v10+ to run.
 
 Install the dependencies and devDependencies and start the server.
 
