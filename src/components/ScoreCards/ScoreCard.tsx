@@ -17,17 +17,17 @@ export const ScoreCard: React.FC<{ player: IUserScore; isActive: boolean }> = ({
           padding: '10px 0px',
           background: !isActive ? 'rgb(231 245 235)' : 'rgb(196 228 206)',
         }}>
-        <Row justify='center' gutter={6}>
-          <Col span={20}>
+        <Row justify='center' gutter={[6, 6]}>
+          <Col sm={22}>
             <h2>
               {player.playerName}
               {isActive && <StarTwoTone style={{ marginLeft: '10px' }} />}
             </h2>
           </Col>
         </Row>
-        <Row justify='center' gutter={6}>
+        <Row justify='center' gutter={[6, 6]}>
           {new Array(10).fill(1).map((_val, frameKey) => (
-            <Col key={frameKey} span={2}>
+            <Col key={frameKey} sm={2}>
               <Frame
                 number={frameKey + 1}
                 frameData={player.frames[frameKey]}
@@ -35,7 +35,7 @@ export const ScoreCard: React.FC<{ player: IUserScore; isActive: boolean }> = ({
               />
             </Col>
           ))}
-          <Col key='total' span={2}>
+          <Col key='total' sm={2}>
             <TotalFrame key='total' score={player.totalScores.slice(-1)[0]} />
           </Col>
         </Row>

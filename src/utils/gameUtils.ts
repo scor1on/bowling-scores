@@ -111,7 +111,8 @@ export const skipPrevBonusMove = (
 export const isGameOver = (playersData: IUserScore[]): boolean => {
   return playersData.every(
     (data) =>
-      data.frames.length > 0 && data.frames.length === data.totalScores.length
+      data.frames.length === 10 &&
+      data.frames.length === data.totalScores.length
   );
 };
 

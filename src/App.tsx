@@ -14,7 +14,7 @@ function App() {
         <Header>
           <div className='logo'>Bowling Scores</div>
         </Header>
-        <Content style={{ padding: '0 50px' }}>
+        <Content style={{ padding: '0 10px' }}>
           <Breadcrumb style={{ margin: '16px 0' }}>
             <Breadcrumb.Item>Home</Breadcrumb.Item>
             <Breadcrumb.Item>Game</Breadcrumb.Item>

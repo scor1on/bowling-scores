@@ -27,11 +27,11 @@ export const Controls: React.FC = () => {
 
   return (
     <Row justify='center' gutter={6} align='middle'>
-      <Col span={7}>
+      <Col sm={7}>
         <Button onClick={restartCurrentGame}>Restart the Game</Button>
       </Col>
       {numbers.map((number) => (
-        <Col key={number} span={1}>
+        <Col key={number} sm={1}>
           <Button
             disabled={disableButton(number)}
             size='large'
@@ -41,7 +41,7 @@ export const Controls: React.FC = () => {
           </Button>
         </Col>
       ))}
-      <Col span={6} style={{ textAlign: 'right' }}>
+      <Col sm={6} style={{ textAlign: 'right' }}>
         <Button onClick={newGame}>New Game</Button>
       </Col>
     </Row>
